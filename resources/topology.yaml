@@ -1,0 +1,31 @@
+name: "count_sentence"
+
+config:
+  topology.workers: 1
+
+spouts:
+  - id: "sentence-spout"
+    className: "org.apache.storm.flux.wrappers.spouts.FluxShellSpout"
+    constructorArgs:
+      # Command line
+      - ["python3", "sentencespout.py"]
+      # Output field(s)
+      - ["sentence"]
+    parallelism: 1
+
+bolts:
+  - id: "splitter-bolt"
+    className: "org.apache.storm.flux.wrappers.bolts.FluxShellBolt"
+    constructorArgs:
+      # Command line
+      - ["python3", "splitbolt.py"]
+      # Output field(s)
+      - ["word"]
+    parallelism: 1
+
+streams:
+  - name: "Spout --> Splitter"
+    from: "sentence-spout"
+    to: "splitter-bolt"
+    grouping:
+      type: SHUFFLE
