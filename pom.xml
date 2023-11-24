@@ -13,7 +13,7 @@
         To find the version information for earlier HDInsight cluster
         versions, see https://azure.microsoft.com/en-us/documentation/articles/hdinsight-component-versioning/
         -->
-        <storm.version>2.0.0</storm.version>
+        <storm.version>2.6.0</storm.version>
     </properties>
     <dependencies>
         <dependency>
